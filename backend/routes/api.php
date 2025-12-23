@@ -1,0 +1,8 @@
+<?php
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+
+Route::post('login', function (Request $request) {
+    echo 1232;
+});
