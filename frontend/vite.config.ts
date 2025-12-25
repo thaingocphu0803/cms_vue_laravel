@@ -15,18 +15,18 @@ export default defineConfig({
   },
   server: {
     host: 'reze.crm.local',
-    port:5173,
+    port: 5173,
     strictPort: true,
     proxy: {
-      '/api': {
-        target: 'http://reze.crm.local',
-			changeOrigin: true,
-      },
       '/api/token': {
         target: 'http://reze.crm.local',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/token/,'\/sanctum\/csrf-cookie')
-      }
+        rewrite: (path) => path.replace(/^\/api\/token/, '\/sanctum\/csrf-cookie'),
+      },
+      '/api': {
+        target: 'http://reze.crm.local',
+        changeOrigin: true,
+      },
     },
   },
 })

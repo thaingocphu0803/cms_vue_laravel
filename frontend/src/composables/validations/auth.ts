@@ -1,8 +1,9 @@
 import {
   email,
-  hasLetter,
+  hasLowerLetter,
   hasNumber,
   hasSpecialChar,
+  hasUpperLetter,
   minLenghh,
   required,
   sameAs,
@@ -20,7 +21,8 @@ const authValidation = {
   password: [
     required('Password'),
     minLenghh('Password', 8),
-    hasLetter('Password'),
+	hasLowerLetter('Password'),
+	hasUpperLetter('Password'),
     hasNumber('Password'),
     hasSpecialChar('Password'),
   ],

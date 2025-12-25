@@ -7,34 +7,44 @@ import Button from '@/components/form/Button.vue'
 import authValidation from '@/composables/validations/auth'
 import { reactive, ref } from 'vue'
 import api from '@/services/api'
-
-type YesNo = 'yes' | 'no'
+import router from '@/router'
+import Home from './Home.vue'
 
 interface LoginForm {
   email: string
   password: string
-  rememberMe: YesNo
+  rememberMe: Boolean
 }
 
 const LoginData = reactive<LoginForm>({
   email: '',
   password: '',
-  rememberMe: 'no',
+  rememberMe: false,
 })
 
 const checkboxData = {
-  falseValue: 'no',
-  trueValue: 'yes',
+  falseValue: false,
+  trueValue: true,
 }
 
 const loading = ref<boolean>(false)
 
-const handleSubmit = async() => {
-	try {
+const errorMessage = ref<string>('')
+
+const handleLogin = async() => {
+	try {	
 		loading.value = true
 		const response = await api.post('login', LoginData)
-	} catch (err) {
-		console.log(err)
+
+		if (response.status === 200) {
+			router.replace({name:'home'})
+		}
+	} catch (error: any) {
+		const status = error.response.status
+
+		if (status === 422 || status === 401) {
+			errorMessage.value = error.response.data.messageCode
+		}
 	} finally {
 		loading.value =false
 	}
@@ -45,10 +55,12 @@ const handleSubmit = async() => {
   <v-layout>
     <auth-bar next-route="register" btn-title="register" />
     <v-main class="mx-auto my-auto" max-width="420px">
-      <Form title="login" @submit-form="handleSubmit">
-		<v-alert color="red-lighten-4" class="text-error">
-			oke
+      <Form title="login" @submit-form="handleLogin">
+
+		<v-alert v-if="errorMessage.length" color="red-lighten-4" density="comfortable" class="text-error text-center	">
+			{{ errorMessage }}
 		</v-alert>
+
         <Input
           label="Email"
           name="email"
