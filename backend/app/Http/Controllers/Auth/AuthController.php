@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Trait\HandleResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -26,15 +27,26 @@ class AuthController extends Controller
             $loginRequest->session()->regenerateToken();
 
             $message = 'Login successfully';
-            return $this->jsonResponse($message);
+            $user = Auth::user()->only(['name', 'email']);
+            $data['user'] = $user;
+            return $this->jsonResponse($message, JsonResponse::HTTP_OK, $data);
         }
 
         $message = 'Incorrect username or password';
+
         return  $this->jsonResponse($message, JsonResponse::HTTP_UNAUTHORIZED);
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
-        echo 456;
+        Auth::guard('web')->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        $message = 'Logout successfully';
+
+        return  $this->jsonResponse($message, JsonResponse::HTTP_OK);
     }
 }
