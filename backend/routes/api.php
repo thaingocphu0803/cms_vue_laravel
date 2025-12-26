@@ -2,13 +2,11 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\User\UserController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Session;
-use Symfony\Component\Routing\Router;
 
-Route::controller(AuthController::class)->group(function(){
+Route::controller(AuthController::class)->prefix('auth')->group(function(){
     Route::post('login', 'login');
+    Route::get('logout', 'logout')->middleware('auth:sanctum');
 });
 
 Route::controller(UserController::class)->prefix('user')->middleware('auth:sanctum')->group(function(){

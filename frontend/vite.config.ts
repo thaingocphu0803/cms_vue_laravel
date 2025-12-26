@@ -3,7 +3,6 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
-import path from 'node:path'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -16,6 +15,7 @@ export default defineConfig({
   server: {
     host: 'reze.crm.local',
     port: 5173,
+    open: 'login',
     strictPort: true,
     proxy: {
       '/api/token': {

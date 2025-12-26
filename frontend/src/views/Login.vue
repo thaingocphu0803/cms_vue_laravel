@@ -6,9 +6,9 @@ import Checkbox from '@/components/form/CheckBox.vue'
 import Button from '@/components/form/Button.vue'
 import authValidation from '@/composables/validations/auth'
 import { reactive, ref } from 'vue'
-import api from '@/services/api'
 import router from '@/router'
-import Home from './Home.vue'
+import { useAuthStore } from '@/stores/auth'
+import { useRoute, type RouteLocationRaw } from 'vue-router'
 
 interface LoginForm {
   email: string
@@ -27,27 +27,33 @@ const checkboxData = {
   trueValue: true,
 }
 
+const route = useRoute()
+
+const redirect = ref<RouteLocationRaw>('')
+
 const loading = ref<boolean>(false)
 
 const errorMessage = ref<string>('')
 
-const handleLogin = async() => {
-	try {	
-		loading.value = true
-		const response = await api.post('login', LoginData)
+const handleLogin = async () => {
+  try {
+    loading.value = true
 
-		if (response.status === 200) {
-			router.replace({name:'home'})
-		}
-	} catch (error: any) {
-		const status = error.response.status
+    const { authLogin } = useAuthStore()
+    const response = await authLogin(LoginData)
+    if (response.status === 200) {
+      redirect.value = (route.query.redirect as string) || { name: 'dashboard' }
+      router.replace(redirect.value)
+    }
+  } catch (error: any) {
+    const status = error.response.status
 
-		if (status === 422 || status === 401) {
-			errorMessage.value = error.response.data.messageCode
-		}
-	} finally {
-		loading.value =false
-	}
+    if (status === 422 || status === 401) {
+      errorMessage.value = error.response.data.messageCode
+    }
+  } finally {
+    loading.value = false
+  }
 }
 </script>
 
@@ -56,10 +62,14 @@ const handleLogin = async() => {
     <auth-bar next-route="register" btn-title="register" />
     <v-main class="mx-auto my-auto" max-width="420px">
       <Form title="login" @submit-form="handleLogin">
-
-		<v-alert v-if="errorMessage.length" color="red-lighten-4" density="comfortable" class="text-error text-center	">
-			{{ errorMessage }}
-		</v-alert>
+        <v-alert
+          v-if="errorMessage.length"
+          color="red-lighten-4"
+          density="comfortable"
+          class="text-error text-center"
+        >
+          {{ errorMessage }}
+        </v-alert>
 
         <Input
           label="Email"
@@ -71,7 +81,7 @@ const handleLogin = async() => {
         <Input
           label="Password"
           name="password"
-		  type="password"
+          type="password"
           :rules="authValidation.password"
           v-model="LoginData.password"
         />
@@ -82,7 +92,7 @@ const handleLogin = async() => {
           :false-value="checkboxData.falseValue"
           :true-value="checkboxData.trueValue"
         />
-        <Button type="submit" title="login" :loading="loading"/>
+        <Button type="submit" title="login" :loading="loading" />
       </Form>
     </v-main>
   </v-layout>

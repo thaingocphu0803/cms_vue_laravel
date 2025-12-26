@@ -1,61 +1,59 @@
-import router from "@/router";
-import axios from "axios";
+import { useAuthStore } from '@/stores/auth'
+import axios from 'axios'
 
 const api = axios.create({
-	baseURL: '/api',
-	headers: {
-		'Accept': 'application/json',
-		'X-Requested-With': 'XMLHttpRequest'
-	},
-	withCredentials: true,
-	withXSRFToken: true,
-	timeout: 5000
+  baseURL: '/api',
+  headers: {
+    Accept: 'application/json',
+    'X-Requested-With': 'XMLHttpRequest',
+  },
+  withCredentials: true,
+  withXSRFToken: true,
+  timeout: 5000,
 })
 
-const getCsrfCookie = () => api.get('token');
+const getCsrfCookie = () => api.get('token')
 
 api.interceptors.response.use(
-	// Return the response if the request was successful
-	(response) => response,
-	
-	async (error) => {
-		// Safely check the status code using Optional Chaining
-		const status = error.response?.status
+  // Return the response if the request was successful
+  (response) => response,
 
-		const originalRequest = error.config;
-		
-		if(error.response.status === 419 && !originalRequest._retry ){
-			originalRequest._retry = true
-				
-		/**
-         * Handle 419 (CSRF Token Mismatch/Expired)
-         * Only retry once using the custom '_retry' flag
-         */
-			try{
-				// Refresh the CSRF cookie from Laravel Sanctum
-				await getCsrfCookie()
+  async (error) => {
+    // Safely check the status code using Optional Chaining
+    const status = error.response?.status
 
-				// Retry the original request with the new cookie
-				return api(originalRequest)
-			}catch(retryError){
-				// If fetching the token itself fails, stop and reject
-				return Promise.reject(retryError)
-			}
+    const originalRequest = error.config
 
-			
-		}
+    if (status === 419 && !originalRequest._retry) {
+      originalRequest._retry = true
 
-		// Redirect to login page if the session has expired
-		if( status === 401 || status === 419){
-			router.push({name:'login', query: {redirect: router.currentRoute.value.fullPath}})
-		}
+      /**
+       * Handle 419 (CSRF Token Mismatch/Expired)
+       * Only retry once using the custom '_retry' flag	
+       */
+      try {
+        // Refresh the CSRF cookie from Laravel Sanctum
+        await getCsrfCookie()
 
-		// Always reject the promise so the Error can be caught in Vue component
-		return Promise.reject(error)
-	}
+        // Retry the original request with the new cookie
+        return api(originalRequest)
+      } catch (retryError) {
+        // If fetching the token itself fails, stop and reject
+        return Promise.reject(retryError)
+      }
+    }
+
+    // Redirect to login page if the session has expired
+	  if (status === 401) {
+		  const authStore = useAuthStore();
+		  authStore.clearAuth();
+    	}
+
+    // Always reject the promise so the Error can be caught in Vue component
+    return Promise.reject(error)
+  },
 )
 
-
-export {getCsrfCookie}
+export { getCsrfCookie }
 
 export default api
