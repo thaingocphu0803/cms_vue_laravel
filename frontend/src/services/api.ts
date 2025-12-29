@@ -12,8 +12,6 @@ const api = axios.create({
   timeout: 5000,
 })
 
-const getCsrfCookie = () => api.get('token')
-
 api.interceptors.response.use(
   // Return the response if the request was successful
   (response) => response,
@@ -33,8 +31,7 @@ api.interceptors.response.use(
        */
       try {
         // Refresh the CSRF cookie from Laravel Sanctum
-        await getCsrfCookie()
-
+		await api.get('token')
         // Retry the original request with the new cookie
         return api(originalRequest)
       } catch (retryError) {
@@ -53,7 +50,5 @@ api.interceptors.response.use(
     return Promise.reject(error)
   },
 )
-
-export { getCsrfCookie }
 
 export default api

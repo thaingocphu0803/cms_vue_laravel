@@ -54,7 +54,7 @@ const RegisterData = reactive<RegisterForm>({
           v-model="RegisterData.confirmPassword"
           :rules="authValidation.passwordConfirm(RegisterData.password)"
         />
-        <Button type="submit" title="register" />
+        <Button title="register" />
       </Form>
     </v-main>
   </v-layout>

@@ -1,6 +1,6 @@
 import { useAuthStore } from '@/stores/auth'
 import { createRouter, createWebHistory } from 'vue-router'
-  
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -27,12 +27,12 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from) => {
-	const authStore = useAuthStore()
+  const authStore = useAuthStore()
 
-  if (!authStore.isInitialized) await authStore.authFetch()
+  await authStore.authFetch()
 
   if (to.meta.requiresAuth && !authStore.isLoggedin) {
-    return { name: 'login', query: {redirect: to.fullPath} }
+    return { name: 'login', query: { redirect: to.fullPath } }
   }
 
   if (to.meta.guestOnly && authStore.isLoggedin) {

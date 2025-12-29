@@ -92,7 +92,7 @@ const handleLogin = async () => {
           :false-value="checkboxData.falseValue"
           :true-value="checkboxData.trueValue"
         />
-        <Button type="submit" title="login" :loading="loading" />
+        <Button title="login" :loading="loading" />
       </Form>
     </v-main>
   </v-layout>

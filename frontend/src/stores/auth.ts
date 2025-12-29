@@ -1,6 +1,6 @@
 import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
-import api, { getCsrfCookie } from '@/services/api'
+import api from '@/services/api'
 
 export const useAuthStore = defineStore('auth', () => {
   interface User {
@@ -18,9 +18,7 @@ export const useAuthStore = defineStore('auth', () => {
     try {
       if (isInitialized.value) return
 
-      await getCsrfCookie()
-
-      const response = await api.get('user/me')
+		const response = await api.get('user/me')
       user.value = response.data.data?.user
     } catch (error: any) {
       console.log('etch user api error', error)
@@ -38,20 +36,20 @@ export const useAuthStore = defineStore('auth', () => {
 
       return response
     } catch (error: any) {
-      console.log('Login api error', error)
       clearAuth()
+      console.log('Login api error', error)
       throw error
     }
   }
-	
-	const authLogout = async () => {
-		try {
-			const response = await api.get('auth/logout')
-			return response
-		} catch (error :any) {
+
+  const authLogout = async () => {
+    try {
+      const response = await api.get('auth/logout')
+      return response
+    } catch (error: any) {
       console.log('Logout api error', error)
-	  }finally{
-      clearAuth();
+    } finally {
+      user.value = null
     }
   }
 
