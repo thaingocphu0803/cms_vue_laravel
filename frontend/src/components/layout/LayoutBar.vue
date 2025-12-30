@@ -10,7 +10,6 @@ import MobileMenuBtn from './MobileMenuBtn.vue'
 <template>
   <v-app-bar>
     <template v-slot:prepend>
-      <v-app-bar-nav-icon color="primary" class="d-sm-none"> </v-app-bar-nav-icon>
     </template>
     <v-app-bar-title class="text-primary">{{ systemConfig.appName }}</v-app-bar-title>
 
