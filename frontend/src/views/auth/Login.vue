@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import AuthBar from '@/components/auth/AuthBar.vue'
+import LayoutBar from '@/components/layout/LayoutBar.vue'
+import ThemeSwitch from '@/components/ThemeSwitch.vue'
 import Form from '@/components/Form.vue'
 import Input from '@/components/form/Input.vue'
 import Checkbox from '@/components/form/CheckBox.vue'
-import Button from '@/components/form/Button.vue'
+import BaseBtn from '@/components/BaseBtn.vue'
 import authValidation from '@/composables/validations/auth'
 import { reactive, ref } from 'vue'
 import router from '@/router'
@@ -59,7 +60,10 @@ const handleLogin = async () => {
 
 <template>
   <v-layout>
-    <auth-bar next-route="register" btn-title="register" />
+    <layout-bar>
+      <theme-switch/>
+    </layout-bar>
+
     <v-main class="mx-auto my-auto" max-width="420px">
       <Form title="login" @submit-form="handleLogin">
         <v-alert
@@ -92,7 +96,7 @@ const handleLogin = async () => {
           :false-value="checkboxData.falseValue"
           :true-value="checkboxData.trueValue"
         />
-        <Button title="login" :loading="loading" />
+        <base-btn title="login" :loading="loading" type="submit" block />
       </Form>
     </v-main>
   </v-layout>

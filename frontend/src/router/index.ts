@@ -6,13 +6,13 @@ const router = createRouter({
   routes: [
     {
       path: '/login',
-      component: () => import('@/views/Login.vue'),
+      component: () => import('@/views/auth/Login.vue'),
       name: 'login',
       meta: { guestOnly: true },
     },
     {
       path: '/register',
-      component: () => import('@/views/Register.vue'),
+      component: () => import('@/views/auth/Register.vue'),
       name: 'register',
       meta: { guestOnly: true },
     },
