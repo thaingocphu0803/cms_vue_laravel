@@ -10,7 +10,6 @@
 
 		<v-list>
 			<v-list-item v-for="item in languageMenu" :key="item.value" :value="item.value" :title="item.title">
-				
 			</v-list-item>
 		</v-list>
 	</v-menu>
