@@ -10,6 +10,7 @@ import { reactive, ref } from 'vue'
 import router from '@/router'
 import { useAuthStore } from '@/stores/auth'
 import { useRoute, type RouteLocationRaw } from 'vue-router'
+import { t } from '@/plugins/vueI18n'
 
 interface LoginForm {
   email: string
@@ -50,7 +51,7 @@ const handleLogin = async () => {
     const status = error.response.status
 
     if (status === 422 || status === 401) {
-      errorMessage.value = error.response.data.messageCode
+      errorMessage.value = t(error.response.data.messageCode)
     }
   } finally {
     loading.value = false
@@ -61,42 +62,22 @@ const handleLogin = async () => {
 <template>
   <v-layout>
     <layout-bar>
-      <theme-switch/>
+      <theme-switch />
     </layout-bar>
 
     <v-main class="mx-auto my-auto" max-width="420px">
-      <Form title="login" @submit-form="handleLogin">
-        <v-alert
-          v-if="errorMessage.length"
-          color="red-lighten-4"
-          density="comfortable"
-          class="text-error text-center"
-        >
+      <Form :title="$t('title.login')" @submit-form="handleLogin">
+        <v-alert v-if="errorMessage.length" color="red-lighten-4" density="comfortable" class="text-error text-center">
           {{ errorMessage }}
         </v-alert>
 
-        <Input
-          label="Email"
-          name="email"
-          placeholder="example@gmail.com"
-          :rules="authValidation.email"
-          v-model="LoginData.email"
-        />
-        <Input
-          label="Password"
-          name="password"
-          type="password"
-          :rules="authValidation.password"
-          v-model="LoginData.password"
-        />
-        <Checkbox
-          label="Remember me"
-          name="remember_me"
-          v-model="LoginData.rememberMe"
-          :false-value="checkboxData.falseValue"
-          :true-value="checkboxData.trueValue"
-        />
-        <base-btn title="login" :loading="loading" type="submit" block/>
+        <Input :label="$t('input.email')" name="email" placeholder="example@gmail.com" :rules="authValidation.email"
+          v-model="LoginData.email" />
+        <Input :label="$t('input.password')" name="password" type="password" :rules="authValidation.password"
+          v-model="LoginData.password" />
+        <Checkbox :label="$t('input.rememberMe')" name="remember_me" v-model="LoginData.rememberMe"
+          :false-value="checkboxData.falseValue" :true-value="checkboxData.trueValue" />
+        <base-btn :title="$t('title.login')" :loading="loading" type="submit" block />
       </Form>
     </v-main>
   </v-layout>
