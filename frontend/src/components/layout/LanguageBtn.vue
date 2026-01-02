@@ -3,7 +3,7 @@
 	import { languageMenu } from '@/config/menu';
 </script>
 <template>
-	<v-menu location="bottom"  transition="slide-y-transition">
+	<v-menu location="bottom center"  transition="slide-y-transition">
 		<template v-slot:activator="{ props}">
 				<base-icon-btn v-bind="props" tooltip="Languages" icon="mdi-translate" class="d-none d-sm-block"></base-icon-btn>
 		</template>

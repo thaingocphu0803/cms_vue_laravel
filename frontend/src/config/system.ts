@@ -1,5 +1,5 @@
 const systemConfig = {
-	appName: "REZE CRM"
+	appName: "REZE ERP"
 }
 
 export default systemConfig

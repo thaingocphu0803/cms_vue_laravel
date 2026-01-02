@@ -10,7 +10,7 @@ import { useAuthStore } from '@/stores/auth';
 import { ref } from 'vue';
 
 const authStore = useAuthStore()
-const isOpen = ref<boolean>(true)
+const isOpen = ref<boolean>()
 
 const handleLogout = async () => await authStore.authLogout()
 
@@ -39,6 +39,7 @@ const handleNavDisplay = () => {
 		</layout-bar>
 
 		<layout-nav v-model="isOpen"></layout-nav>
+
 		<v-main>
 			<router-view></router-view>
 		</v-main>

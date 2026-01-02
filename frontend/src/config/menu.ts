@@ -1,7 +1,7 @@
 const navMenu = [
 		{
-		title: "Home",
-		value: "home",
+		title: "Dashboard",
+		value: "dashboard",
 		icon: "mdi-home",
 		routeName:"dashboard"
 	},
@@ -9,25 +9,31 @@ const navMenu = [
 		title: "Attendance",
 		value: "attendance",
 		icon: "mdi-clock-time-ten",
-		routeName:"dashboard.attendance"
+		routeName:"attendance"
 	},
 	{
-		title: "My Account",
-		value: "account",
+		title: "My Profile",
+		value: "profile",
 		icon: "mdi-account",
-		routeName:"dashboard.account"
+		routeName:"profile"
 	},
 	{
 		title: "Human Resources",
 		value: "employee",
 		icon: "mdi-account-multiple",
-		routeName:"dashboard.employee"
+		routeName:"employee"
+	},
+	{
+		title: "Messages",
+		value: "message",
+		icon: "mdi-message-text",
+		routeName:"message"
 	},
 	{
 		title: "Setting",
 		value: "Setting",
 		icon: "mdi-cog",
-		routeName:"dashboard.setting"
+		routeName:"setting"
 	},
 ]
 

@@ -14,9 +14,10 @@ const avatar = user?.avatar ?? defaultConfig.avatar
     <v-list>
       <v-list-item
         :prepend-avatar="avatar"
-        :subtitle="user?.email"
-        :title="user?.name"
-      ></v-list-item>
+      >
+      <v-list-item-title class="text-capitalize">{{ user?.name }}</v-list-item-title>
+      <v-list-item-subtitle>{{ user?.email }}</v-list-item-subtitle>
+    </v-list-item>
     </v-list>
 
     <v-divider></v-divider>
@@ -28,10 +29,8 @@ const avatar = user?.avatar ?? defaultConfig.avatar
         :prepend-icon="item.icon"
         :title="item.title"
         :value="item.value"
+        :to="{name: item.routeName}"
       ></v-list-item>
     </v-list>
   </v-navigation-drawer>
-  <v-main>
-
-  </v-main>
 </template>
