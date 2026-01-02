@@ -1,30 +1,27 @@
+import { t } from '@/plugins/vueI18n'
+
 // required rule
-export const required = (field: string) => (v: any) => !!v || `${field} is required`
+export const required = (msg: string) => (v: any) => !!v || msg
 
 // valid email rule
-export const email = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) || `Invalid email`
+export const email = (v: string) =>
+	/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) || t('Validate.email.format')
 
 // min length rule
-export const minLenghh = (field: string, min: number) => (v: any) =>
-  v.length >= min || `${field} must be at least ${min} characters`
+export const minLenghh = (msg: string, min: number) => (v: any) => v.length >= min || msg
 
 //  has lowercase letter rule
-export const hasLowerLetter = (field: string) => (v: any) =>
-	/[a-z]/.test(v) || `${field} must be at least one lowercase character`
+export const hasLowerLetter = (msg: string) => (v: any) => /[a-z]/.test(v) || msg
 
 //  has uppercase letter rule
-export const hasUpperLetter = (field: string) => (v: any) =>
-  /[A-Z]/.test(v) || `${field} must be at least one uppercase character`
-
+export const hasUpperLetter = (msg: string) => (v: any) => /[A-Z]/.test(v) || msg
 
 // has number rule
-export const hasNumber = (field: string) => (v: any) =>
-  /\d/.test(v) || `${field} must be at least one number`
+export const hasNumber = (msg: string) => (v: any) => /\d/.test(v) || msg
 
 // has special char rule
-export const hasSpecialChar = (field: string) => (v: any) =>
-  /[^A-Za-z0-9]/.test(v) || `${field} must be at least one special char`
+export const hasSpecialChar = (msg: string) => (v: any) => /[^A-Za-z0-9]/.test(v) || msg
 
 // match target rule
-export const sameAs = (field: string, target: any) => (v: any) =>
-  v === target || `${field} is not matched`
+export const sameAs = (msg: string, target: any) => (v: any) => v === target || msg
+

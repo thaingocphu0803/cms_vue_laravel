@@ -26,13 +26,13 @@ class AuthController extends Controller
         if ($auth) {
             $loginRequest->session()->regenerateToken();
 
-            $message = 'Login successfully';
+            $message = 'alert.success.login';
             $user = Auth::user()->only(['name', 'email']);
             $data['user'] = $user;
             return $this->jsonResponse($message, JsonResponse::HTTP_OK, $data);
         }
 
-        $message = 'Incorrect username or password';
+        $message = 'alert.error.incorrectAuth';
 
         return  $this->jsonResponse($message, JsonResponse::HTTP_UNAUTHORIZED);
     }
@@ -45,7 +45,7 @@ class AuthController extends Controller
 
         $request->session()->regenerateToken();
 
-        $message = 'Logout successfully';
+        $message = 'alert.success.logout';
 
         return  $this->jsonResponse($message, JsonResponse::HTTP_OK);
     }
