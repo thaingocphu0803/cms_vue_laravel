@@ -1,36 +1,36 @@
 const navMenu = [
 		{
-		title: "Dashboard",
+		title: 'common.module.dashboard',
 		value: "dashboard",
 		icon: "mdi-home",
 		routeName:"dashboard"
 	},
 	{
-		title: "Attendance",
+		title: 'common.module.attendance',
 		value: "attendance",
 		icon: "mdi-clock-time-ten",
 		routeName:"attendance"
 	},
 	{
-		title: "My Profile",
+		title: 'common.module.myProfile',
 		value: "profile",
 		icon: "mdi-account",
 		routeName:"profile"
 	},
 	{
-		title: "Human Resources",
+		title: 'common.module.humanceResource',
 		value: "employee",
 		icon: "mdi-account-multiple",
 		routeName:"employee"
 	},
 	{
-		title: "Messages",
+		title: 'common.module.message',
 		value: "message",
 		icon: "mdi-message-text",
 		routeName:"message"
 	},
 	{
-		title: "Setting",
+		title: 'common.module.setting',
 		value: "Setting",
 		icon: "mdi-cog",
 		routeName:"setting"
@@ -39,11 +39,11 @@ const navMenu = [
 
 const languageMenu = [
 	{
-		title: 'English',
+		title: 'common.language.english',
 		value: 'en'
 	},
 	{
-		title: 'Vietnamese',
+		title: 'common.language.vietnamese',
 		value: 'vi'
 	}
 ]

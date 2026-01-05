@@ -4,6 +4,7 @@ interface Props {
 }
 
 const modelValue = defineModel<String>()
+	
 const props = defineProps<Props>()
 </script>
 
@@ -13,5 +14,7 @@ const props = defineProps<Props>()
     v-model="modelValue"
     validate-on="blur"
     density="compact"
-  ></v-text-field>
+  >
+  <template v-slot:message="{message}">{{ $t(message) }}</template>
+  </v-text-field>
 </template>

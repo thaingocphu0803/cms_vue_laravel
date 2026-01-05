@@ -1,4 +1,4 @@
 <template>
-    <v-empty-state headline="comming soon..." icon="mdi-cogs">
-    </v-empty-state>
+	<v-empty-state :headline="$t('common.state.comeSoon')" class="text-uppercase" icon="mdi-cogs">
+	</v-empty-state>
 </template>

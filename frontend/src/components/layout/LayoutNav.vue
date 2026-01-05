@@ -27,10 +27,12 @@ const avatar = user?.avatar ?? defaultConfig.avatar
         v-for="item in navMenu"
         :key="item.value"
         :prepend-icon="item.icon"
-        :title="item.title"
         :value="item.value"
         :to="{name: item.routeName}"
-      ></v-list-item>
+		:title="$t(item.title)"
+		class="text-capitalize"
+      >
+	</v-list-item>
     </v-list>
   </v-navigation-drawer>
 </template>

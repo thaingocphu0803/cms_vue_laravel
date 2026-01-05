@@ -1,14 +1,15 @@
-import { t } from '@/plugins/vueI18n'
+import { t } from "@/plugins/vueI18n"
+
 
 // required rule
 export const required = (msg: string) => (v: any) => !!v || msg
 
 // valid email rule
-export const email = (v: string) =>
-	/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) || t('Validate.email.format')
+export const email = (msg: string) =>  (v: string) =>
+	/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) || msg
 
 // min length rule
-export const minLenghh = (msg: string, min: number) => (v: any) => v.length >= min || msg
+export const minLength = (msg: string, min: number) => (v: any) => v.length >= min || msg
 
 //  has lowercase letter rule
 export const hasLowerLetter = (msg: string) => (v: any) => /[a-z]/.test(v) || msg

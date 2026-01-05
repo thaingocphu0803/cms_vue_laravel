@@ -1,0 +1,27 @@
+{
+    "common": {
+        "module": {
+            "dashboard": "Bảng Điều Khiển",
+            "attendance": "Điểm Danh",
+            "myProfile": "Hồ Sơ Của Tôi",
+            "humanceResource": "Quản Lý Nhân Sự",
+            "message": "Tin Nhắn",
+            "setting": "Cài Đặt"
+        },
+        "language": {
+            "english": "Tiếng Anh",
+            "vietnamese": "Tiếng Việt"
+        },
+        "button": {
+            "notification": "Thông báo",
+            "language": "Ngôn Ngữ",
+            "logout": "Đăng Xuất"
+        },
+        "state": {
+            "comeSoon": "Sắp Ra Mắt..."
+        },
+        "subttitle": {
+            "notification": "Hôm nay"
+        }
+    }
+}

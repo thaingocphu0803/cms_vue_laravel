@@ -1,0 +1,28 @@
+{
+	"common": {
+		"module": {
+			"dashboard": "Dashboard",
+			"attendance": "Attendance",
+			"myProfile": "My Profile",
+			"humanceResource": "Human Resources",
+			"message": "Messages",
+			"setting": "Setting"
+		},
+		"language": {
+			"english": "English",
+			"vietnamese": "Vietnamese"
+		},
+		"button": {
+			"notification": "Notifications",
+			"language": "Languages",
+			"logout": "Logout",
+			"seeAll": "See all"
+		},
+		"state": {
+			"comeSoon": "Comming Soon..."
+		},
+		"subttitle": {
+			"notification": "Today"
+		} 
+	}
+}

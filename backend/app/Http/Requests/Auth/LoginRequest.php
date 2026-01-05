@@ -41,7 +41,7 @@ class LoginRequest extends FormRequest
     protected function failedValidation(Validator $validator)
     {
 
-        $message = 'alert.error.invalidAuth';
+        $message = 'auth.alert.error.invalidAuth';
 
         $this->exceptionResponse($message, JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
     }
