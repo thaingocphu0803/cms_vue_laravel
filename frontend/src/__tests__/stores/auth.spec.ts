@@ -1,7 +1,6 @@
 import router from '@/router'
 import api from '@/services/api'
 import { useAuthStore } from '@/stores/auth'
-import { email } from '@/utils/validationRule'
 import { createPinia, setActivePinia } from 'pinia'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
@@ -22,15 +21,18 @@ vi.mock('@/router', () => ({
 
 describe('pinia auth store', () => {
 	let authStore: ReturnType<typeof useAuthStore>
+	let logSpy: any
 
 	beforeEach(() => {
 		setActivePinia(createPinia())
 		authStore = useAuthStore()
 		vi.clearAllMocks()
+		logSpy = vi.spyOn(console, 'log').mockImplementation(() => {})
 	})
 
 	afterEach(() => {
 		vi.restoreAllMocks()
+		logSpy.mockRestore()
 	})
 
 	it('initial state', () => {
@@ -84,7 +86,6 @@ describe('pinia auth store', () => {
 
 		it('fetch auth failed', async () => {
 			vi.mocked(api.get).mockRejectedValue(new Error('fetch auth fail'))
-			const logSpy = vi.spyOn(console, 'log')
 
 			await authStore.authFetch()
 
@@ -111,8 +112,6 @@ describe('pinia auth store', () => {
 
 		it('logout failed', async () => {
 			vi.mocked(api.post).mockRejectedValue(new Error('logout fail'))
-
-			const logSpy = vi.spyOn(console, 'log')
 
 			await authStore.authLogout()
 

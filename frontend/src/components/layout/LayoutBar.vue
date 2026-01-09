@@ -14,7 +14,7 @@ const props = defineProps<Props>()
       <slot name="icon"></slot>
     </template>
 
-    <v-app-bar-title :class="props.textColor">{{ systemConfig.appName }}</v-app-bar-title>
+    <v-app-bar-title :class="props.textColor" data-testId="app-bar-title">{{ systemConfig.appName }}</v-app-bar-title>
 
     <div class="d-flex align-center justify-center ga-5 mr-5">
       <slot></slot>

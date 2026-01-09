@@ -1,15 +1,19 @@
-import { mount } from '@vue/test-utils'
+import { mount, VueWrapper } from '@vue/test-utils'
 import LanguageBtn from '../../../components/layout/LanguageBtn.vue'
-import { describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { changeLanguage } from '@/composables/useLanguage'
 
 vi.mock('@/composables/useLanguage', () => ({
 	changeLanguage: vi.fn(),
 }))
 
-describe('LanguageBtn Layout component', () => {
-	it('trigger changeLanguage function when clicking', async () => {
-		const wrapper = mount(LanguageBtn, {
+describe('LanguageBtn', () => {
+	let wrapper: VueWrapper<any>
+
+	vi.clearAllMocks();
+	
+	beforeEach(() => {
+		wrapper = mount(LanguageBtn, {
 			global: {
 				mocks: {
 					$t: (key: string) => `Translate ${key}`,
@@ -27,18 +31,24 @@ describe('LanguageBtn Layout component', () => {
 				},
 			},
 		})
+	})
 
-		// test whether BaseIconBtn component is received correct tooltip
+	it('render v-tooltip', () => {
 		const iconBtn = wrapper.findComponent({ name: 'BaseIconBtn' })
 		expect(iconBtn.props('tooltip')).toBe('common.button.language')
+	})
 
-		// test whether list had 2 list item
+	it('render exact number of list item', () => {
 		const items = wrapper.findAll('li')
 		expect(items.length).toEqual(2)
 		expect(items[0].text()).toContain('Translate ')
+	})
 
-		// test whether changeLanguage function is called
+		it('call changeLangue function', async() => {
+		const items = wrapper.findAll('li')
 		await items[0].trigger('click')
 		expect(changeLanguage).toHaveBeenCalled()
 	})
+
+
 })

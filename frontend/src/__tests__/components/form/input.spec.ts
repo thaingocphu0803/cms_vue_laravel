@@ -1,8 +1,8 @@
-import { it, expect } from 'vitest'
+import { it, expect, describe } from 'vitest'
 import { mount } from '@vue/test-utils'
 import Input from '@/components/form/Input.vue'
 
-describe('Input Form component', () => {
+describe('Input.Vue', () => {
 	it('translate message', () => {
 		const wrapper = mount(Input, {
 			global: {

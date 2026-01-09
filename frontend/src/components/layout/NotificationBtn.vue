@@ -5,6 +5,7 @@ import BaseBtn from '../BaseBtn.vue'
 
 const tooltip = "common.button.notification"
 const title = "common.button.seeAll"
+const subttitle = "common.subttitle.notification"
 </script>
 
 <template>
@@ -20,7 +21,7 @@ const title = "common.button.seeAll"
 
 		<v-list max-width="420px" density="comfortable" class="pb-0" lines="two">
 			<v-list-subheader
-				:title="$t('common.subttitle.notification')"
+				:title="$t(subttitle)"
 				sticky
 			></v-list-subheader>
 

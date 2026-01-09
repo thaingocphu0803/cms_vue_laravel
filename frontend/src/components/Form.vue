@@ -25,7 +25,7 @@ const handleSubmit = async () => {
 
 <template>
   <v-card density="comfortable" border>
-    <v-card-title class="text-uppercase text-center">{{ $t(props.title) }}</v-card-title>
+    <v-card-title class="text-uppercase text-center" data-testId="form-title">{{ $t(props.title) }}</v-card-title>
 
     <v-card-text class="mt-5">
       <v-form
@@ -33,6 +33,7 @@ const handleSubmit = async () => {
         ref="formRef"
         class="d-flex flex-column ga-3"
         v-bind:="$attrs"
+		data-testId="vi-form"
       >
         <slot></slot>
       </v-form>

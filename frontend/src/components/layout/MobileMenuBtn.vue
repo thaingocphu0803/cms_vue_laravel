@@ -29,6 +29,7 @@ const handleLogout = async () => await authStore.authLogout()
 					:value="item.value"
 					:title="$t(item.title)"
 					@click="changeLanguage(item.value)"
+					data-testId="mobile-language-item"
 				>
 				</v-list-item>
 			</v-list-group>
@@ -37,6 +38,7 @@ const handleLogout = async () => await authStore.authLogout()
 				value="logoutBtn"
 				:title="$t('common.button.logout')"
 				@click="handleLogout"
+				data-testId="mobile-logout-item"
 			></v-list-item>
 		</v-list>
 	</v-menu>
